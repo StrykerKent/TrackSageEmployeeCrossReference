@@ -1,0 +1,385 @@
+﻿@model IEnumerable<Tract_XRref.Models.Contract_PO_Line>
+
+@{
+    ViewBag.Title = "View";
+    var grid = new WebGrid(Model, canPage: true, rowsPerPage: 16,
+     selectionFieldName: "selectedRow");
+    grid.Pager(WebGridPagerModes.All);
+
+    var sor = Request["sort"];
+    var sord = Request["sortdir"];
+
+    //string qs = @Request.QueryString.ToString();
+
+    //var ponumber = Request.Form["ponumber"];
+    //var sagejob = Request.Form["sagejob"];
+
+    //if (qs == "")
+    //    qs = "?ponumber=" + @ponumber + "&sagejob=@sagejob";
+
+    //String currurl = HttpContext.Current.Request.Url.ToString();
+}
+
+@*@if (!Request.RawUrl.ToString().Contains("sort"))
+    {
+        thefilt += "?ponumber="+View.Bag.ponumber;
+    }*@
+
+@*<h2>Contracts | Client: @ViewBag.clientsitename | Contract: @ViewBag.clientcontractcode</h2>*@
+<div class="pull-left">
+    <h2>Purchase Orders</h2>
+</div>
+<div class="pull-right">
+    @*<h3 class="text-muted">@ViewBag.rowcount</h3>*@
+</div>
+<div class='clearfix'></div>
+@*@using (Html.BeginForm("Index", "Contract", new { sort }, FormMethod.Post))*@
+@*action="contract?@Request.QueryString"*@
+<form action="" method="post" id="form_filter">
+    <div class="row">
+        <div class="col-lg-10 col-sm-12 col-xs-12">
+            <div class="input-group no_max_width">
+                <span class="input-group-addon">Client: </span>
+                @Html.DropDownList("clientsiteid", null, htmlAttributes: new { @class = "form-control" })
+                @*<input name="client" type="text" placeholder="" class="form-control" value="" id="sj" />*@
+
+                <span class="input-group-addon">Contract: </span>
+                @Html.DropDownList("clientcontractid", null, string.Empty, htmlAttributes: new { @class = "form-control" })
+                @*<input name="contract" type="text" placeholder="" class="form-control" value="" id="sj" />*@
+
+                <span class="input-group-addon">Job: </span>
+                <input name="sagejob" type="text" placeholder="" class="form-control" value="@ViewBag.sj" id="sj" />
+
+                <span class="input-group-addon">PO#: </span>
+                <input name="ponumber" type="text" placeholder="" class="form-control" value="@ViewBag.pon" id="pon" />
+                <span class="input-group-addon">Issued On/After: </span>
+                <input name="issuedoa" type="text" placeholder="" class="form-control" value="@ViewBag.ioa" id="ioa" data-val="true" data-val-date="Issued On/After must be a date." data-rule-minlength="6" />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary" id="submit" title="Filter"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></button>
+                </span>
+                <span class="input-group-btn" style="padding-left:2%;">
+                    <button type="button" class="btn btn-default" id="removeFilter" title="Erase / Remove Filter"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+                </span>
+                <span class="field-validation-valid text-danger" data-valmsg-for="issuedoa" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-12 col-xs-12">
+            <a href="contract/create?clientsiteid=@ViewBag.csid&clientcontractid=@ViewBag.ccid" class="btn-success btn pull-right" title="Add New Line" data-toggle="modal" data-target="#myModal" id="create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <button type="button" class="btn btn-default btn pull-right" style="margin-right:10%;" id="excel" title="Download to Excel"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></button>
+</div>
+    </div>
+</form>
+<br />
+<div id="gridContent">
+    @grid.GetHtml(tableStyle: "table table-bordered table-striped table-hover",
+    headerStyle: "header",
+    alternatingRowStyle: "alt",
+    selectedRowStyle: "select",
+    columns: grid.Columns(
+        grid.Column("", style: "button",
+                format:
+                @<text>
+                    @*<button class="edit-case read" id="@item.Contract_PO_ID">Edit</button>*@
+                    <a href="contract/edit/@item.Contract_PO_ID?sort=@sor&sortdir=@sord&clientsiteid=@ViewBag.csid&clientcontractid=@ViewBag.ccid&sagejob=@ViewBag.sj&ponumber=@ViewBag.pon" id="editm" data-toggle="modal" data-target="#myModal" data-id="@item.Contract_PO_ID"></a>
+                </text>),
+    grid.Column("Sage_Job", "Sage Job", style: "center_in_tbl"),
+    grid.Column("PO_Number", "PO Number", style: "center_in_tbl"),
+    grid.Column("PO_Line", "PO Line", style: "center_in_tbl"),
+    grid.Column("PO_Line_Description", "Line Description"),
+    grid.Column("PO_Line_Issued_Date", "Issued Date", style: "center_in_tbl", format: @<text>@if (@item.PO_Line_Issued_Date != null) { @item.PO_Line_Issued_Date.ToString("MM/dd/yyyy")}</text>),
+    grid.Column("Echo_Contact", "Echo Contact"),
+    grid.Column("Customer_Contact", "Customer Contact")
+    @*PO_Line_Approved_Amount_Orig    PO_Line_Approved*@
+    ),
+    footerStyle:"tbl_footer")
+</div>
+
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">...Loading</h4>
+            </div>
+            <div class="modal-body">
+                Content on its way.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+@*<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    @*<h2>MVC Standard Table</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sage_Job)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Number)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line_Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line_Issued_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Echo_Contact)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customer_Contact)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line_Approved_Amount_Orig)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line_Approved_Amount_Revised)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line_Percent_Work_Completed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line_Status_Code)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO_Line_Notes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Billing_Method.Billing_Method_Code)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Client_Contract.Contract_Code)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.Sage_Job)
+                    </td>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.PO_Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line_Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line_Issued_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Echo_Contact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer_Contact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line_Approved_Amount_Orig)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line_Approved_Amount_Revised)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line_Percent_Work_Completed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line_Status_Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO_Line_Notes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Billing_Method.Billing_Method_Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client_Contract.Contract_Code)
+                    </td>
+                    <td>
+                        Edit | Details | Delete
+                        @Html.ActionLink("Edit", "Edit", new { id=item.Contract_PO_ID }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.Contract_PO_ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Contract_PO_ID })
+                    </td>
+                </tr>
+            }
+
+        </table>*@
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
+            $(function () {
+                //rebuild link for column header sort click
+                var pon = $("#pon").val();
+                var sj = $("#sj").val();
+                var ioa = $("#ioa").val();
+                var csid = $("#clientsiteid").val();
+                var ccid = $("#clientcontractid").val();
+                $("tr.header th a").each(function () {
+                    var $this = $(this);
+                    var _href = $this.attr("href");
+                    if (_href.indexOf("sagejob") > 0) {
+                        //remove sagejob and ponumber and their values
+                        _href = _href.substring(0, _href.indexOf("&sagejob"));
+                    } else if (_href.indexOf("sagejob") == -1 && _href.indexOf("ponumber") > 0) {
+                        _href = _href.substring(0, _href.indexOf("&ponumber"));
+                    }
+                    //add new values for sagejob and ponumber
+                    $this.attr("href", _href + '&sagejob=' + sj + '&ponumber=' + pon + '&issuedoa=' + ioa + '&clientsiteid=' + csid + '&clientcontractid=' + ccid);
+                });
+                //rebuild link for form submit (filter)
+                $("#submit").click(function () {
+                    //e.preventDefault(); //add e to function
+                    var click_pon = $("#pon").val();
+                    var click_sj = $("#sj").val();
+                    var click_ioa = $("#ioa").val();
+                    var click_csid = $("#clientsiteid").val();
+                    var click_ccid = $("#clientcontractid").val();
+                    var pathlower = window.location.href.toString().toLowerCase();
+                    var req = window.location.href.toString();
+                    var ok = req.indexOf("contract"); //test
+                    var great = req.indexOf("&sagejob"); //test
+                    var nice = req.indexOf("sagejob"); //test
+                    var request_string_w_all_params = "&sagejob=" + click_sj + "&ponumber=" + click_pon + "&issuedoa=" + click_ioa + "&clientsiteid=" + click_csid + "&clientcontractid=" + click_ccid;
+                    //todo:re-evaluate these if statements
+                    if (pathlower.indexOf("sagejob") > 0) {
+                        req = req.substring(pathlower.indexOf("contract"), pathlower.indexOf("&sagejob"));
+                        req += request_string_w_all_params;
+                    } else if (pathlower.indexOf("sagejob") == -1 && pathlower.indexOf("ponumber") > 0) {
+                        req = req.substring(pathlower.indexOf("contract"), pathlower.indexOf("&ponumber"));
+                        req += request_string_w_all_params;
+                    } else if (pathlower.indexOf("sagejob") == -1 && pathlower.indexOf("ponumber") == -1 && pathlower.indexOf("issuedoa") > 0) {
+                        req = req.substring(pathlower.indexOf("contract"), pathlower.indexOf("&issuedoa"));
+                        req += request_string_w_all_params;
+                    } else if (pathlower.indexOf("sagejob") == -1 && pathlower.indexOf("ponumber") == -1 && pathlower.indexOf("issuedoa") ==-1 && pathlower.indexOf("clientsiteid") > 0) {
+                        req = req.substring(pathlower.indexOf("contract"), pathlower.indexOf("&clientsiteid"));
+                        req += request_string_w_all_params;
+                    } else {
+                        req = req.substring(pathlower.indexOf("contract"), pathlower.length);
+                    }
+                    console.log(req); //test
+                    $("#form_filter").attr("action", "" + req);
+                });
+                //remove filter
+                $("#removeFilter").click(function () {
+                    $("#pon").val("");
+                    $("#sj").val("");
+                    $("#ioa").val("");
+                    //$("#clientsiteid").val("");
+                    $("#clientcontractid").val("");
+                    $(submit).trigger("click");
+                });
+                // set arrows on sort
+                var curpath = window.location.href.toString();
+                if (curpath.indexOf("sort=") > 0) {
+                    var cpindir = curpath.indexOf("sortdir=") + 8;
+                    var dir = curpath.substring(cpindir, cpindir + 4);
+                    var cpincol = curpath.indexOf("sort=") + 5;
+                    var col = curpath.substring(cpincol, curpath.indexOf("&sortdir="));
+                    //alert(col);
+                    //var header = $('th a[href*=' + col + ']');
+                    var header = $("th a[href*='sort=" + col + "&']");
+                    //var header = $('th a:contains(' + col + ')');
+                    if (dir == 'ASC&' || dir == 'asc&') {
+                        header.text(header.text() + ' ▲');
+                    }
+                    if (dir == 'DESC' || dir == 'desc') {
+                        header.text(header.text() + ' ▼');
+                    }
+                };
+                //stop edit click default... load modal
+                $("a#editm").click(function (e) {
+                    e.preventDefault();
+                    //$('#myModal').modal('toggle');
+                });
+                //todo:color row that was recently edited
+                //datepicker
+                $("#ioa").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+                ////datepicker for modal
+                //$("#modal_date").datepicker({
+                //    changeMonth: true,
+                //    changeYear: true
+                //});
+                //test
+                //$("#modal_date").click(function () {
+                //    $("#modal_date").datepicker("show");
+                //    alert("yes");
+                //});
+                //click on download buton /export to excel
+                $("#excel").click(function () {
+                    var click_pon = $("#pon").val();
+                    var click_sj = $("#sj").val();
+                    var click_ioa = $("#ioa").val();
+                    var click_csid = $("#clientsiteid").val();
+                    var click_ccid = $("#clientcontractid").val();
+                    window.location = "contract/exportexcel?sagejob=" + click_sj + "&ponumber=" + click_pon + "&issuedoa=" + click_ioa + "&clientsiteid=" + click_csid + "&clientcontractid=" + click_ccid;
+                });
+                //submit form when client changed
+                $("#clientsiteid").change(function () {
+                    $("#clientcontractid").val("");
+                    $("#sj").val("");
+                    $("#pon").val("");
+                    $("#submit").trigger("click");
+                });
+                //submit form when contract changed
+                $("#clientcontractid").change(function () {
+                    $("#submit").trigger("click");
+                });
+                //highlight changed row
+                if (curpath.indexOf("id=") > 0) {
+                    var pathid = curpath.indexOf("_id=") + 4;
+                    var row_id = curpath.substring(pathid);
+                    //find row
+                    $("*[data-id='"+row_id+"']").closest("tr").addClass("highlight");
+                };
+                //doubleclick row to to initiate edit modal
+                $("td").dblclick(function () {
+                    //$(this).parent().children(":first").css("background", "black"); //test, find first td
+                    $(this).parent().children(":first").find("a").click();
+                });
+                //add total rows to footer
+                if($("#gridContent table tfoot").length <= 0) { //if no tfoot then build one
+                    var count_th = $("#gridContent table th").length; //counts rows for colspan
+                    $("#gridContent table").append($("<tfoot>"));
+                    $("#gridContent table tfoot").append($("<tr class='tbl_footer'>"));
+                    $("#gridContent table tfoot tr.tbl_footer").append($("<td colspan='"+count_th+"'>"));
+                }
+                $(".tbl_footer td").append($("<span class='pull-right total'>"));
+                $("#gridContent span.total").text("Total "+ @ViewBag.rowcount);
+
+            });
+        </script>
+    }

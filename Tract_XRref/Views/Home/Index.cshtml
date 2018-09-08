@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Track Cross Reference Web App</h1>
+    <p class="lead">Cross Reference Track with Echo purchase orders. Update and add new purchase orders.</p>
+</div>
+<div class="row home_page">
+    <div class="col-sm-4 text-center">
+        <a href="~/contract">
+            <span style="font-size: 5em;" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+            <h2>Purchase Orders</h2>
+        </a>
+    </div>
+    <div class="col-sm-4 text-center">
+        <a href="~/employee">
+            <span style="font-size: 5em;" class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            
+            <h2>Employees</h2>
+        </a>
+        @*<span class="badge home_badge">@ViewBag.EmpMatchCount</span>*@
+    </div>
+    <div class="col-sm-4 text-center" title="coming later">
+        <span style="font-size: 5em;" class="glyphicon glyphicon-certificate" aria-hidden="true"></span>
+        <h2>Job Set Up</h2>
+    </div>
+    
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            //add class to make jumbotron full screen
+            $(".jumbotron").parent().addClass("uncontain");
+    });
+    </script>
+    }

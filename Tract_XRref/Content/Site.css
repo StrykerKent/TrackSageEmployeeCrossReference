@@ -1,0 +1,173 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom:20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/********************* User Added ************************/
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+body {
+    padding-bottom:0px;
+}
+
+.body-content {
+    min-height: 82.2vh;
+    height: auto !important;
+    height: 82.2vh;
+}
+
+.container {
+    width: 98% !important;
+}
+
+.no_max_width input {
+    max-width: 100%;
+}
+
+.table th a {
+    color:#333;
+    text-decoration:none;
+}
+
+.table th a:hover:after {
+    content:" ▼";
+    width:0px;
+    position:absolute;
+    /*left:-10px;*/
+    color:#337ab7;
+}
+
+.cancel_btn_space {
+    margin-left:6%;
+}
+
+.header th:nth-child(2), .header th:nth-child(3), .header th:nth-child(4), .header th:nth-child(6) {
+    text-align:center;
+}
+
+.center_in_tbl {
+    margin:30px auto;
+}
+
+.center_in_tbl, .center_in_tbl th {
+    text-align:center;
+}
+
+.text-muted {
+    /*color:#ededed;*/
+    color:#f1f1f1;
+}
+
+@keyframes highlight {
+  0% {
+    background: #F8C988;
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+.highlight {
+  animation: highlight 3s;
+}
+
+#gridContent table td {
+    cursor:pointer;
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: #c3c3c3;
+}
+
+footer {
+    /*border-top:1px solid #f2f2f2;*/
+    background: #222;
+    color: #9d9d9d;
+    margin-top: 20px;
+    padding: 40px 0;
+}
+
+footer a, footer a:visited, footer a:active, footer a:hover  {
+    color: #9d9d9d;
+}
+
+.ft_right {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.ft_right li {
+    display:inline-block;
+    padding-left:8%;
+}
+
+.home_page {
+    margin-top:8vh;
+}
+
+.container.uncontain, .body-content.uncontain {
+    padding-left:0px !important;
+    padding-right:0px !important;
+    width: 100% !important;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+    vertical-align:sub;
+    font-size: large;
+}
+
+.modalHeadRight {
+    padding-top:18px;
+}
+
+.modal_larger {
+    width:70%;
+}
+
+.home_badge {
+   background-color: #d9534f;
+   position:relative;
+   top: -140px;
+   left: 30px;
+}
+
+.match_badge {
+   background-color: #d9534f;
+   position:relative;
+   top: -18px;
+   left: -15px;
+}
+
+.table#match_tbl1 {
+    margin-bottom:0px;
+}
+
+.trSelected {
+    background-color: #F8C988 !important;
+}

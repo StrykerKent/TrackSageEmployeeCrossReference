@@ -1,0 +1,21 @@
+﻿@* // https://stackoverflow.com/questions/12633471/mvc4-datatype-date-editorfor-wont-display-date-value-in-chrome-fine-in-interne
+    // chrome needs dates yyyy-MM-dd but ff and ie take dates any which way...but ff and ie display dates just as they were formatted
+    // and chrome fixess yyyy-MM-dd to dd/MM/yyyy. The issue is that the date will look different in each browser and it would be backwards
+    // to some users... Until this piece of code came along.
+    //*@
+@model DateTime?
+@{
+    IDictionary<string, object> htmlAttributes;
+    object objAttributes;
+    if (ViewData.TryGetValue("htmlAttributes", out objAttributes))
+    {
+        htmlAttributes = objAttributes as IDictionary<string, object> ?? HtmlHelper.AnonymousObjectToHtmlAttributes(objAttributes);
+    }
+    else
+    {
+        htmlAttributes = new RouteValueDictionary();
+    }
+    htmlAttributes.Add("type", "date");
+    String format = (Request.UserAgent != null && Request.UserAgent.Contains("Chrome")) ? "{0:yyyy-MM-dd}" : "{0:d}";
+    @Html.TextBox("", Model, format, htmlAttributes)
+}

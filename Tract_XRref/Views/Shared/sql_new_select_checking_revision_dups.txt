@@ -1,0 +1,25 @@
+SELECT        JobID, SpoolNumber, Revision, COUNT(*) AS countThis
+FROM            (SELECT        JobID, CONTROLNO AS SpoolNumber, REVISION AS Revision
+                          FROM            dbo.[_tmpSpl_021918_03:13:19pm_stryker_stinnette]
+                          UNION ALL
+                          SELECT        dbo.Spool.JobID, dbo.Spool.SpoolNumber, dbo.SpoolRevision.Revision
+                          FROM            dbo.Spool INNER JOIN
+                                                   dbo.SpoolRevision ON dbo.Spool.LastRevisionID = dbo.SpoolRevision.RevisionID) AS z
+GROUP BY JobID, SpoolNumber, Revision
+HAVING        (COUNT(*) > 1)
+
+
+
+
+/*rev*/
+
+
+SELECT        JobID, SpoolNumber, Revision, COUNT(*) AS countThis
+FROM            (SELECT        JobID, CONTROLNO AS SpoolNumber, REVISION AS Revision
+                          FROM            dbo.[_tmpSpl_022018_08:10:58am_stryker_stinnette_rev]
+                          UNION ALL
+                          SELECT        dbo.Spool.JobID, dbo.Spool.SpoolNumber, dbo.SpoolRevision.Revision
+                          FROM            dbo.Spool INNER JOIN
+                                                   dbo.SpoolRevision ON dbo.Spool.LastRevisionID = dbo.SpoolRevision.RevisionID) AS z
+GROUP BY JobID, SpoolNumber, Revision
+HAVING        (COUNT(*) > 1)

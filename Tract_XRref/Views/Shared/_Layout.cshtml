@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <title>@ViewBag.Title | Track XRef</title>
+    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Track Cross Reference", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title="Logged in as: "+@User.Identity.Name.ToString() })
+            </div>
+            <div class="navbar-collapse collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li>@Html.ActionLink("Purchase Orders", "Index", "Contract")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Employees <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("View", "Index", "Employee")</li>
+                        <li>@Html.ActionLink("Match", "Match", "Employee")</li>
+                    </ul>
+                </li>
+                </ul>
+                @*<p class="nav navbar-text">@User.Identity.Name.ToString().Replace(@"ECHOGROUP\", "")</p>*@
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @*<hr />
+    <br />*@
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- placeholder -->
+                </div>
+                <div class="col-md-8 text-right">
+                    <ul class="ft_right">
+                        <li>User: @User.Identity.Name.ToString()</li>
+                        <li>Version: 1.2.3</li>
+                        <li>&copy; <a href="http://www.echogroupllc.net">The Echo Group</a> @DateTime.Now.Year</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
