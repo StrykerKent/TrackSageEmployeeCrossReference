@@ -1,6 +1,6 @@
-﻿# Tract & Sage Employee Cross Reference Web Application
+﻿# Track & Sage Employee Cross Reference Web Application
 
-This is an ASP.NET MVC 5 Web Application used to cross reference employee names and ids between an employee timesheet system (Tract) from the customer and our employee payroll system (Sage). The web application showed possible matches for the clicked on employee (between Tract and Sage...customer database and contractor's database). The user could then save the correct match information to the contractor payroll database (Sage).
+This is an ASP.NET MVC 5 Web Application used to cross reference employee names and ids between an employee timesheet system (Track) from the customer and our employee payroll system (Sage). The web application showed possible matches for the clicked on employee (between Track and Sage...customer database and contractor's database). The user could then save the correct match information to the contractor payroll database (Sage).
 
 The user can view current employees, create new employees, and update an employee's information. 
 
