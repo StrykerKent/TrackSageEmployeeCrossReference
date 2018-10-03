@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Track_XRref", "Track_XRref\Track_XRref.csproj", "{5F758517-1E5F-4301-8C08-394075DF4055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Track_XRref.Tests", "Track_XRref.Tests\Track_XRref.Tests.csproj", "{373653D0-210D-4547-A0A6-C66303AF1A6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F758517-1E5F-4301-8C08-394075DF4055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F758517-1E5F-4301-8C08-394075DF4055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F758517-1E5F-4301-8C08-394075DF4055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F758517-1E5F-4301-8C08-394075DF4055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{373653D0-210D-4547-A0A6-C66303AF1A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373653D0-210D-4547-A0A6-C66303AF1A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{373653D0-210D-4547-A0A6-C66303AF1A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373653D0-210D-4547-A0A6-C66303AF1A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCDC11A3-C8CA-4BC9-9939-1BC777A11239}
+	EndGlobalSection
+EndGlobal
